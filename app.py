@@ -59,7 +59,7 @@ def register_user():
     db.session.add(new_user)
     db.session.commit()
 
-    app.logger.info("Username {username} registered")
+    app.logger.info(f"Username {username} registered")
     return make_response('',201)
 
 
@@ -81,7 +81,7 @@ def login_user():
         db.session.commit()
         response = make_response('',201)
         response.set_cookie('session_token',session_token)
-        app.logger.info("Username {username} logged in")
+        app.logger.info(f"Username {username} logged in")
         return response
     else:
         app.logger.info(f"Invalid credentials during login")
@@ -111,7 +111,7 @@ def change_password():
         db.session.commit()
         response = make_response('',201)
         response.set_cookie('session_token',session_token)
-        app.logger.info("Username {username} changed their password")
+        app.logger.info(f"Username {username} changed their password")
         return response
     else:
         app.logger.info(f"Invalid credentials")
