@@ -87,6 +87,21 @@ def login_user():
         app.logger.info(f"Invalid credentials during login")
         return make_response(jsonify({'message':'Invalid credentials. Check username and password again.'}),401)
 
+@app.route('/user', methods=['GET'])
+def get_user_info():
+    session_token = request.cookies.get('session_token')
+
+    if not session_token:
+        return make_response(jsonify({'message': 'Session token is required.'}), 401)
+
+    user = User.query.filter_by(session_token=session_token).first()
+
+    if user:
+        return make_response(jsonify({'message': f'Logged in as user {user.username}'}), 200)
+    else:
+        return make_response(jsonify({'message': 'Invalid session token or session expired.'}), 401)
+
+
 @app.route('/changepw',methods=['POST'])
 def change_password():
     username = request.json.get('username')
