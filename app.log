@@ -4,115 +4,48 @@ INFO:werkzeug:[33mPress CTRL+C to quit[0m
 INFO:werkzeug: * Restarting with stat
 WARNING:werkzeug: * Debugger is active!
 INFO:werkzeug: * Debugger PIN: 919-680-648
+INFO:werkzeug:127.0.0.1 - - [19/Feb/2024 21:44:16] "[35m[1mPOST /register HTTP/1.1[0m" 201 -
+INFO:werkzeug: * Detected change in '/Users/aasth/Desktop/SFU/Last_Sem/CMPT_785/Assignment_1/app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 919-680-648
+INFO:werkzeug: * Detected change in '/Users/aasth/Desktop/SFU/Last_Sem/CMPT_785/Assignment_1/app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 919-680-648
+INFO:werkzeug: * Detected change in '/Users/aasth/Desktop/SFU/Last_Sem/CMPT_785/Assignment_1/app.py', reloading
+INFO:werkzeug: * Restarting with stat
+INFO:app:Created Admin user
 INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
  * Running on http://127.0.0.1:5000
 INFO:werkzeug:[33mPress CTRL+C to quit[0m
 INFO:werkzeug: * Restarting with stat
 WARNING:werkzeug: * Debugger is active!
 INFO:werkzeug: * Debugger PIN: 919-680-648
-INFO:werkzeug:127.0.0.1 - - [12/Feb/2024 00:37:32] "[33mGET / HTTP/1.1[0m" 404 -
-INFO:werkzeug:127.0.0.1 - - [12/Feb/2024 00:37:37] "[31m[1mGET /register HTTP/1.1[0m" 405 -
-INFO:werkzeug:127.0.0.1 - - [12/Feb/2024 00:37:57] "[31m[1mGET /login HTTP/1.1[0m" 405 -
+INFO:werkzeug:127.0.0.1 - - [19/Feb/2024 22:00:30] "[31m[1mPOST /register HTTP/1.1[0m" 400 -
+INFO:werkzeug:127.0.0.1 - - [19/Feb/2024 22:00:57] "[35m[1mPOST /register HTTP/1.1[0m" 201 -
+INFO:werkzeug: * Detected change in '/Users/aasth/Desktop/SFU/Last_Sem/CMPT_785/Assignment_1/app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 919-680-648
+INFO:werkzeug:127.0.0.1 - - [19/Feb/2024 22:01:31] "[35m[1mPOST /login HTTP/1.1[0m" 500 -
 INFO:werkzeug: * Detected change in '/Users/aasth/Desktop/SFU/Last_Sem/CMPT_785/Assignment_1/app.py', reloading
 INFO:werkzeug: * Restarting with stat
 WARNING:werkzeug: * Debugger is active!
 INFO:werkzeug: * Debugger PIN: 919-680-648
 INFO:werkzeug: * Detected change in '/Users/aasth/Desktop/SFU/Last_Sem/CMPT_785/Assignment_1/app.py', reloading
 INFO:werkzeug: * Restarting with stat
-WARNING:werkzeug: * Debugger is active!
-INFO:werkzeug: * Debugger PIN: 919-680-648
-INFO:werkzeug:127.0.0.1 - - [12/Feb/2024 00:38:10] "[31m[1mGET /login HTTP/1.1[0m" 405 -
+INFO:app:Created Admin user
 INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
  * Running on http://127.0.0.1:5000
 INFO:werkzeug:[33mPress CTRL+C to quit[0m
 INFO:werkzeug: * Restarting with stat
 WARNING:werkzeug: * Debugger is active!
 INFO:werkzeug: * Debugger PIN: 919-680-648
-INFO:werkzeug:127.0.0.1 - - [12/Feb/2024 00:38:19] "[31m[1mGET /login HTTP/1.1[0m" 405 -
-INFO:werkzeug:127.0.0.1 - - [12/Feb/2024 00:38:22] "[31m[1mGET /login HTTP/1.1[0m" 405 -
-INFO:werkzeug:127.0.0.1 - - [12/Feb/2024 00:38:28] "[31m[1mGET /register HTTP/1.1[0m" 405 -
-INFO:werkzeug:127.0.0.1 - - [12/Feb/2024 00:38:55] "[31m[1mGET /register?username='admin'?password='admin' HTTP/1.1[0m" 405 -
-INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
- * Running on http://127.0.0.1:5000
-INFO:werkzeug:[33mPress CTRL+C to quit[0m
-INFO:werkzeug: * Restarting with stat
-WARNING:werkzeug: * Debugger is active!
-INFO:werkzeug: * Debugger PIN: 919-680-648
-INFO:werkzeug:127.0.0.1 - - [14/Feb/2024 23:16:51] "[31m[1mPOST /login HTTP/1.1[0m" 401 -
-INFO:werkzeug:127.0.0.1 - - [14/Feb/2024 23:17:32] "[35m[1mPOST /register HTTP/1.1[0m" 500 -
-INFO:werkzeug:127.0.0.1 - - [14/Feb/2024 23:18:08] "[35m[1mPOST /register HTTP/1.1[0m" 500 -
-INFO:werkzeug: * Detected change in '/Users/aasth/Desktop/SFU/Last_Sem/CMPT_785/Assignment_1/app.py', reloading
-INFO:werkzeug: * Restarting with stat
-WARNING:werkzeug: * Debugger is active!
-INFO:werkzeug: * Debugger PIN: 919-680-648
-INFO:werkzeug: * Detected change in '/Users/aasth/Desktop/SFU/Last_Sem/CMPT_785/Assignment_1/app.py', reloading
-INFO:werkzeug: * Restarting with stat
-WARNING:werkzeug: * Debugger is active!
-INFO:werkzeug: * Debugger PIN: 919-680-648
-INFO:werkzeug:127.0.0.1 - - [14/Feb/2024 23:19:02] "[35m[1mPOST /register HTTP/1.1[0m" 500 -
-INFO:werkzeug: * Detected change in '/Users/aasth/Desktop/SFU/Last_Sem/CMPT_785/Assignment_1/app.py', reloading
-INFO:werkzeug: * Restarting with stat
-WARNING:werkzeug: * Debugger is active!
-INFO:werkzeug: * Debugger PIN: 919-680-648
-INFO:werkzeug: * Detected change in '/Users/aasth/Desktop/SFU/Last_Sem/CMPT_785/Assignment_1/app.py', reloading
-INFO:werkzeug: * Restarting with stat
-WARNING:werkzeug: * Debugger is active!
-INFO:werkzeug: * Debugger PIN: 919-680-648
-INFO:werkzeug:127.0.0.1 - - [14/Feb/2024 23:21:13] "POST /register HTTP/1.1" 200 -
-INFO:werkzeug:127.0.0.1 - - [14/Feb/2024 23:21:46] "POST /register HTTP/1.1" 200 -
-INFO:werkzeug: * Detected change in '/Users/aasth/Desktop/SFU/Last_Sem/CMPT_785/Assignment_1/app.py', reloading
-INFO:werkzeug: * Restarting with stat
-WARNING:werkzeug: * Debugger is active!
-INFO:werkzeug: * Debugger PIN: 919-680-648
-INFO:werkzeug: * Detected change in '/Users/aasth/Desktop/SFU/Last_Sem/CMPT_785/Assignment_1/app.py', reloading
-INFO:werkzeug: * Restarting with stat
-WARNING:werkzeug: * Debugger is active!
-INFO:werkzeug: * Debugger PIN: 919-680-648
-INFO:werkzeug:127.0.0.1 - - [14/Feb/2024 23:22:17] "[35m[1mPOST /register HTTP/1.1[0m" 500 -
-INFO:werkzeug: * Detected change in '/Users/aasth/Desktop/SFU/Last_Sem/CMPT_785/Assignment_1/app.py', reloading
-INFO:werkzeug: * Restarting with stat
-WARNING:werkzeug: * Debugger is active!
-INFO:werkzeug: * Debugger PIN: 919-680-648
-INFO:werkzeug: * Detected change in '/Users/aasth/Desktop/SFU/Last_Sem/CMPT_785/Assignment_1/app.py', reloading
-INFO:werkzeug: * Restarting with stat
-WARNING:werkzeug: * Debugger is active!
-INFO:werkzeug: * Debugger PIN: 919-680-648
-INFO:werkzeug:127.0.0.1 - - [14/Feb/2024 23:24:06] "[35m[1mPOST /register HTTP/1.1[0m" 500 -
-INFO:werkzeug: * Detected change in '/Users/aasth/Desktop/SFU/Last_Sem/CMPT_785/Assignment_1/app.py', reloading
-INFO:werkzeug: * Restarting with stat
-WARNING:werkzeug: * Debugger is active!
-INFO:werkzeug: * Debugger PIN: 919-680-648
-INFO:werkzeug: * Detected change in '/Users/aasth/Desktop/SFU/Last_Sem/CMPT_785/Assignment_1/app.py', reloading
-INFO:werkzeug: * Restarting with stat
-WARNING:werkzeug: * Debugger is active!
-INFO:werkzeug: * Debugger PIN: 919-680-648
-INFO:werkzeug: * Detected change in '/Users/aasth/Desktop/SFU/Last_Sem/CMPT_785/Assignment_1/app.py', reloading
-INFO:werkzeug: * Restarting with stat
-WARNING:werkzeug: * Debugger is active!
-INFO:werkzeug: * Debugger PIN: 919-680-648
-INFO:werkzeug:127.0.0.1 - - [14/Feb/2024 23:25:45] "[35m[1mPOST /register HTTP/1.1[0m" 500 -
-INFO:werkzeug: * Detected change in '/Users/aasth/Desktop/SFU/Last_Sem/CMPT_785/Assignment_1/app.py', reloading
-INFO:werkzeug: * Restarting with stat
-INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
- * Running on http://127.0.0.1:5000
-INFO:werkzeug:[33mPress CTRL+C to quit[0m
-INFO:werkzeug: * Restarting with stat
-WARNING:werkzeug: * Debugger is active!
-INFO:werkzeug: * Debugger PIN: 919-680-648
-INFO:werkzeug:127.0.0.1 - - [14/Feb/2024 23:28:28] "[35m[1mPOST /register HTTP/1.1[0m" 500 -
-INFO:werkzeug: * Detected change in '/Users/aasth/Desktop/SFU/Last_Sem/CMPT_785/Assignment_1/app.py', reloading
-INFO:werkzeug: * Restarting with stat
-WARNING:werkzeug: * Debugger is active!
-INFO:werkzeug: * Debugger PIN: 919-680-648
-INFO:werkzeug:127.0.0.1 - - [14/Feb/2024 23:30:55] "[35m[1mPOST /register HTTP/1.1[0m" 500 -
-INFO:werkzeug: * Detected change in '/Users/aasth/Desktop/SFU/Last_Sem/CMPT_785/Assignment_1/app.py', reloading
-INFO:werkzeug: * Restarting with stat
-WARNING:werkzeug: * Debugger is active!
-INFO:werkzeug: * Debugger PIN: 919-680-648
-INFO:werkzeug: * Detected change in '/Users/aasth/Desktop/SFU/Last_Sem/CMPT_785/Assignment_1/app.py', reloading
-INFO:werkzeug: * Restarting with stat
-WARNING:werkzeug: * Debugger is active!
-INFO:werkzeug: * Debugger PIN: 919-680-648
+INFO:werkzeug:127.0.0.1 - - [19/Feb/2024 22:05:37] "[35m[1mPOST /register HTTP/1.1[0m" 201 -
+INFO:werkzeug:127.0.0.1 - - [19/Feb/2024 22:05:46] "[35m[1mPOST /register HTTP/1.1[0m" 201 -
+INFO:werkzeug:127.0.0.1 - - [19/Feb/2024 22:06:00] "[35m[1mPOST /login HTTP/1.1[0m" 201 -
+INFO:werkzeug:127.0.0.1 - - [19/Feb/2024 22:06:08] "[31m[1mPOST /register HTTP/1.1[0m" 400 -
 INFO:werkzeug: * Detected change in '/Users/aasth/Desktop/SFU/Last_Sem/CMPT_785/Assignment_1/app.py', reloading
 INFO:werkzeug: * Restarting with stat
 WARNING:werkzeug: * Debugger is active!
@@ -127,8 +60,4 @@ INFO:werkzeug:[33mPress CTRL+C to quit[0m
 INFO:werkzeug: * Restarting with stat
 WARNING:werkzeug: * Debugger is active!
 INFO:werkzeug: * Debugger PIN: 919-680-648
-INFO:werkzeug:127.0.0.1 - - [14/Feb/2024 23:37:35] "[35m[1mPOST /register HTTP/1.1[0m" 500 -
-INFO:werkzeug: * Detected change in '/Users/aasth/Desktop/SFU/Last_Sem/CMPT_785/Assignment_1/app.py', reloading
-INFO:werkzeug: * Restarting with stat
-WARNING:werkzeug: * Debugger is active!
-INFO:werkzeug: * Debugger PIN: 919-680-648
+INFO:werkzeug:127.0.0.1 - - [19/Feb/2024 22:10:21] "[33mGET / HTTP/1.1[0m" 404 -
