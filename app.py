@@ -87,6 +87,36 @@ def login_user():
         app.logger.info(f"Invalid credentials during login")
         return make_response(jsonify({'message':'Invalid credentials. Check username and password again.'}),401)
 
+@app.route('/changepw',methods=['POST'])
+def change_password():
+    username = request.json.get('username')
+    old_password = request.json.get('old_password')
+    new_password = request.json.get('new_password')
+
+    if not username or not old_password or not new_password:
+        app.logger.info("Username or password not provided")
+        return make_response(jsonify({'message':"Username,old and new passwords must be provided"}),400)    
+
+    if old_password==new_password:
+        app.logger.info("new and old passwords are same")
+        return make_response(jsonify({'message':"New password must be different from old password"}),400) 
+        
+    hashed_old_password = hashlib.sha256(old_password.encode()).hexdigest()
+    user = User.query.filter_by(username=username, password=hashed_old_password).first()
+
+    if user:
+        user.password = hashlib.sha256(new_password.encode()).hexdigest()
+        session_token = str(uuid.uuid4())
+        user.session_token = session_token
+        db.session.commit()
+        response = make_response('',201)
+        response.set_cookie('session_token',session_token)
+        app.logger.info("Username {username} changed their password")
+        return response
+    else:
+        app.logger.info(f"Invalid credentials")
+        return make_response(jsonify({'message':'Invalid credentials. Check username and password again.'}),401)    
+
 if __name__ == '__main__':
     admin_user()
     app.run(debug=True)
