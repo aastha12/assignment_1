@@ -45,10 +45,13 @@ def register_user():
     password = request.json.get('password')
 
     if not username or not password:
+        app.logger.info("Username or password not provided")
         return make_response(jsonify({'message':"Both username and password must be provided"}),400)
 
-    existing_user = User.query.filter_by(username=username).first()
-    if existing_user:
+    #check if user already exists
+    user = User.query.filter_by(username=username).first()
+    if user:
+        app.logger.info(f"Username {username} already exists")
         return make_response(jsonify({'message':"Username already exists!"}),400)
 
     hashed_password = hashlib.sha256(password.encode()).hexdigest()
@@ -56,6 +59,7 @@ def register_user():
     db.session.add(new_user)
     db.session.commit()
 
+    app.logger.info("Username {username} registered")
     return make_response('',201)
 
 
@@ -65,6 +69,7 @@ def login_user():
     password = request.json.get('password')
 
     if not username or not password:
+        app.logger.info("Username or password not provided")
         return make_response(jsonify({'message':"Both username and password must be provided"}),400)
 
     hashed_password = hashlib.sha256(password.encode()).hexdigest()
@@ -76,8 +81,10 @@ def login_user():
         db.session.commit()
         response = make_response('',201)
         response.set_cookie('session_token',session_token)
+        app.logger.info("Username {username} logged in")
         return response
     else:
+        app.logger.info(f"Invalid credentials during login")
         return make_response(jsonify({'message':'Invalid credentials. Check username and password again.'}),401)
 
 if __name__ == '__main__':
