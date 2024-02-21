@@ -3,34 +3,41 @@ import uuid
 from flask import Flask, request, jsonify, make_response
 import hashlib
 import logging
-# from flask_talisman import Talisman
-
-app = Flask(__name__)
-app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+from flask_sqlalchemy import SQLAlchemy
+import datetime
 
 #initalize logger
 logging.basicConfig(filename='app.log', level=logging.INFO)
 
-#initlize talisman with default settings
-# talisman = Talisman(app)
+app = Flask(__name__)
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
+app.config['SESSION_COOKIE_SECURE'] = True
+app.config['SESSION_COOKIE_HTTPONLY'] = True
+app.config['PERMANENT_SESSION_LIFETIME'] = datetime.timedelta(minutes=15)
+db = SQLAlchemy(app)
 
-#initializa db and create connection
-conn = sqlite3.connect("app.db",timeout=20)
-cursor = conn.cursor()
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(50), unique=True, nullable=False)
+    password = db.Column(db.String(255), nullable=False)
+    role = db.Column(db.String(50), nullable=False)
+    session_token = db.Column(db.String(50))
 
-#create users table
-cursor.execute("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY,username TEXT UNIQUE,password TEXT, role TEXT)")
 
-#create admin user role if it doesn't exist
-result = cursor.execute("SELECT COUNT(*) FROM users WHERE role='admin' ")
-if result==0:
-    #encrypt the password 'admin'
-    admin_password = hashlib.sha256('admin'.encode()).hexdigest()
-    cursor.execute("INSERT INTO users (username,password,role) VALUES (?,?,?)",('admin',admin_password,'admin'))
+def admin_user():
+    with app.app_context():
+        db.create_all()
+        # Check if admin user exists
+        admin_user = User.query.filter_by(username='admin').first()
+        if not admin_user:
+            # Create admin user
+            admin_password = hashlib.sha256('admin'.encode()).hexdigest()
+            admin_user = User(username='admin', password=admin_password, role='admin')
+            db.session.add(admin_user)
+            db.session.commit()
+            app.logger.info("Created Admin user")
 
-#close connection
-conn.commit()
-conn.close()
 
 @app.route('/register',methods=['POST'])
 def register_user():
@@ -38,21 +45,23 @@ def register_user():
     password = request.json.get('password')
 
     if not username or not password:
+        app.logger.info("Username or password not provided")
         return make_response(jsonify({'message':"Both username and password must be provided"}),400)
-    
-    with sqlite3.connect("app.db",timeout=20) as conn:
-        cursor = conn.cursor()
 
-        result = cursor.execute("SELECT COUNT(*) FROM users WHERE username= (?)",(username,))
-        result = cursor.fetchone()[0] 
-        if result>0:
-            return make_response(jsonify({'message':"Username already exists!"}),400)
+    #check if user already exists
+    user = User.query.filter_by(username=username).first()
+    if user:
+        app.logger.info(f"Username {username} already exists")
+        return make_response(jsonify({'message':"Username already exists!"}),400)
 
-        password = hashlib.sha256(password.encode()).hexdigest()
-        cursor.execute("INSERT INTO users (username,password,role) VALUES (?,?,?)",(username,password,'user'))
-        conn.commit()
+    hashed_password = hashlib.sha256(password.encode()).hexdigest()
+    new_user = User(username=username, password=hashed_password, role='user')
+    db.session.add(new_user)
+    db.session.commit()
 
+    app.logger.info(f"Username {username} registered")
     return make_response('',201)
+
 
 @app.route('/login',methods=['POST'])
 def login_user():
@@ -60,27 +69,69 @@ def login_user():
     password = request.json.get('password')
 
     if not username or not password:
+        app.logger.info("Username or password not provided")
         return make_response(jsonify({'message':"Both username and password must be provided"}),400)
-    
-    conn = sqlite3.connect("app.db")
-    cursor = conn.cursor()
 
-    password = hashlib.sha256(password.encode()).hexdigest()
-    cursor.execute("SELECT * FROM users WHERE username=? and password=?",(username,password))
-    result = cursor.fetchone()
+    hashed_password = hashlib.sha256(password.encode()).hexdigest()
+    user = User.query.filter_by(username=username, password=hashed_password).first()
 
-    if result:
+    if user:
         session_token = str(uuid.uuid4())
-        cursor.execute("UPDATE users SET session_token=? WHERE id=?",(session_token,result[0]))
-        conn.commit()
-        conn.close()
+        user.session_token = session_token
+        db.session.commit()
         response = make_response('',201)
         response.set_cookie('session_token',session_token)
+        app.logger.info(f"Username {username} logged in")
         return response
     else:
-        conn.commit()
-        conn.close()
+        app.logger.info(f"Invalid credentials during login")
         return make_response(jsonify({'message':'Invalid credentials. Check username and password again.'}),401)
 
+@app.route('/user', methods=['GET'])
+def get_user_info():
+    session_token = request.cookies.get('session_token')
+
+    if not session_token:
+        return make_response(jsonify({'message': 'Session token is required.'}), 401)
+
+    user = User.query.filter_by(session_token=session_token).first()
+
+    if user:
+        return make_response(jsonify({'message': f'Logged in as user {user.username}'}), 200)
+    else:
+        return make_response(jsonify({'message': 'Invalid session token or session expired.'}), 401)
+
+
+@app.route('/changepw',methods=['POST'])
+def change_password():
+    username = request.json.get('username')
+    old_password = request.json.get('old_password')
+    new_password = request.json.get('new_password')
+
+    if not username or not old_password or not new_password:
+        app.logger.info("Username or password not provided")
+        return make_response(jsonify({'message':"Username,old and new passwords must be provided"}),400)    
+
+    if old_password==new_password:
+        app.logger.info("new and old passwords are same")
+        return make_response(jsonify({'message':"New password must be different from old password"}),400) 
+        
+    hashed_old_password = hashlib.sha256(old_password.encode()).hexdigest()
+    user = User.query.filter_by(username=username, password=hashed_old_password).first()
+
+    if user:
+        user.password = hashlib.sha256(new_password.encode()).hexdigest()
+        session_token = str(uuid.uuid4())
+        user.session_token = session_token
+        db.session.commit()
+        response = make_response('',201)
+        response.set_cookie('session_token',session_token)
+        app.logger.info(f"Username {username} changed their password")
+        return response
+    else:
+        app.logger.info(f"Invalid credentials")
+        return make_response(jsonify({'message':'Invalid credentials. Check username and password again.'}),401)    
+
 if __name__ == '__main__':
+    admin_user()
     app.run(debug=True)
