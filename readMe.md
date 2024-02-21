@@ -12,6 +12,10 @@ Run `python app.py` in a command line with the venv activated.
 
 In another command line, run `curl -X POST http://localhost:5000/register -H "Content-Type: application/json" -d "{\"username\": \"aastha\", \"password\": \"user\"}"` to test any endpoint (in this case I am testing the `/register` endpoint)
 
+curl -c cookies.txt -X POST http://localhost:5000/login -H "Content-Type: application/json" -d "{\"username\": \"admin\", \"password\": \"admin\"}"  to login 
+
+curl -b cookies.txt -X GET "http://localhost:5000/admin" -H "Content-Type: application/json"  to get the user
+
 You can see the response of the `curl` command in the `app.log` file or in the command line itself (depending on the request).
 
 ### Example of app.log:
