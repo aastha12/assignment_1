@@ -101,6 +101,21 @@ def get_user_info():
     else:
         return make_response(jsonify({'message': 'Invalid session token or session expired.'}), 401)
 
+@app.route('/admin', methods=['GET'])
+def get_admin_info():
+    session_token = request.cookies.get('session_token')
+
+    if not session_token:
+        return make_response(jsonify({'message': 'Session token is required.'}), 401)
+
+    # Check if the user with the provided session token is an admin
+    admin_user = User.query.filter_by(session_token=session_token, role='admin').first()
+
+    if admin_user:
+        return make_response(jsonify({'message': f'Admin access granted to user {admin_user.username}'}), 200)
+    else:
+        return make_response(jsonify({'message': 'Access denied. Admin privileges required.'}), 403)
+
 
 @app.route('/changepw',methods=['POST'])
 def change_password():

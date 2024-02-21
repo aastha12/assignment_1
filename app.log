@@ -111,3 +111,29 @@ INFO:werkzeug: * Detected change in '/Users/aasth/Desktop/SFU/Last_Sem/CMPT_785/
 INFO:werkzeug: * Restarting with stat
 WARNING:werkzeug: * Debugger is active!
 INFO:werkzeug: * Debugger PIN: 919-680-648
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 571-314-323
+INFO:app:Username rithik registered
+INFO:werkzeug:127.0.0.1 - - [20/Feb/2024 18:17:36] "[35m[1mPOST /register HTTP/1.1[0m" 201 -
+INFO:app:Username rithik logged in
+INFO:werkzeug:127.0.0.1 - - [20/Feb/2024 18:18:09] "[35m[1mPOST /login HTTP/1.1[0m" 201 -
+INFO:werkzeug:127.0.0.1 - - [20/Feb/2024 18:24:56] "[31m[1mGET /user HTTP/1.1[0m" 401 -
+INFO:werkzeug:127.0.0.1 - - [20/Feb/2024 18:30:21] "[31m[1mPOST /login HTTP/1.1[0m" 400 -
+INFO:werkzeug:127.0.0.1 - - [20/Feb/2024 18:31:08] "[31m[1mPOST /login HTTP/1.1[0m" 400 -
+INFO:app:Username rithik already exists
+INFO:werkzeug:127.0.0.1 - - [20/Feb/2024 18:32:31] "[31m[1mPOST /register HTTP/1.1[0m" 400 -
+INFO:app:Username rithik logged in
+INFO:werkzeug:127.0.0.1 - - [20/Feb/2024 18:32:58] "[35m[1mPOST /login HTTP/1.1[0m" 201 -
+INFO:werkzeug:127.0.0.1 - - [20/Feb/2024 18:33:20] "[33mGET /admin HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [20/Feb/2024 18:33:43] "GET /user HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in 'C:\\Users\\ragar\\OneDrive\\Documents\\GitHub\\assignment_1\\app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 571-314-323
+INFO:app:Username admin logged in
+INFO:werkzeug:127.0.0.1 - - [20/Feb/2024 18:35:11] "[35m[1mPOST /login HTTP/1.1[0m" 201 -
+INFO:werkzeug:127.0.0.1 - - [20/Feb/2024 18:35:35] "GET /admin HTTP/1.1" 200 -
