@@ -26,6 +26,23 @@ In another command line:
 
 `curl -i -X GET http://localhost:5000/admin -H "Content-Type: application/json" -b "session_token=<insert_token>"`
 
+### Change Password endpoint:
+`curl -i -X POST http://localhost:5000/changepw -H "Content-Type: application/json" -d "{\"username\": \"aastha2\", \"old_password\": \"user2\",\"new_password\":\"user\"}"`
+
+### Account Locked after incorrect password (3 retries):
+```
+curl -i -X POST http://localhost:5000/login -H "Content-Type: application/json" -d "{\"username\": \"aastha2\", \"password\": \"test\"}"
+HTTP/1.1 403 FORBIDDEN
+Server: Werkzeug/3.0.1 Python/3.12.1
+Date: Sat, 24 Feb 2024 08:05:37 GMT
+Content-Type: application/json
+Content-Length: 52
+Connection: close
+
+{
+  "message": "Account locked. Try again later."
+}
+```
 
 # To do:
 
