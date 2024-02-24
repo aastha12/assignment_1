@@ -5,6 +5,7 @@ import logging
 from flask_sqlalchemy import SQLAlchemy
 import datetime
 import os 
+import bcrypt
 #initalize logger
 logging.basicConfig(filename='app.log', level=logging.INFO)
 
@@ -34,8 +35,9 @@ def admin_user():
         admin_user = User.query.filter_by(username='admin').first()
         if not admin_user:
             # Create admin user
-            admin_password = hashlib.sha256('admin'.encode()).hexdigest()
-            admin_user = User(username='admin', password=admin_password, role='admin')
+            admin_password = 'admin'.encode('utf-8')
+            hashed_password = bcrypt.hashpw(admin_password, bcrypt.gensalt())
+            admin_user = User(username='admin', password=hashed_password.decode('utf-8'), role='admin')
             db.session.add(admin_user)
             db.session.commit()
             app.logger.info("Created Admin user")
@@ -44,7 +46,7 @@ def admin_user():
 @app.route('/register',methods=['POST'])
 def register_user():
     username = request.json.get('username')
-    password = request.json.get('password')
+    password = request.json.get('password').encode('utf-8')
 
     if not username or not password:
         app.logger.info("Username or password not provided")
@@ -56,8 +58,8 @@ def register_user():
         app.logger.info(f"Username {username} already exists")
         return make_response(jsonify({'message':"Username already exists!"}),400)
 
-    hashed_password = hashlib.sha256(password.encode()).hexdigest()
-    new_user = User(username=username, password=hashed_password, role='user')
+    hashed_password = bcrypt.hashpw(password, bcrypt.gensalt())
+    new_user = User(username=username, password=hashed_password.decode('utf-8'), role='user')
     db.session.add(new_user)
     db.session.commit()
 
@@ -68,13 +70,13 @@ def register_user():
 @app.route('/login',methods=['POST'])
 def login_user():
     username = request.json.get('username')
-    password = request.json.get('password')
+    password = request.json.get('password').encode('utf-8')
 
     if not username or not password:
         app.logger.info("Username or password not provided")
         return make_response(jsonify({'message':"Both username and password must be provided"}),400)
 
-    hashed_password = hashlib.sha256(password.encode()).hexdigest()
+    #hashed_password = hashlib.sha256(password.encode()).hexdigest()
     # user = User.query.filter_by(username=username, password=hashed_password).first()
     user = User.query.filter_by(username=username).first()
 
@@ -88,7 +90,8 @@ def login_user():
             else:
                 return make_response(jsonify({'message': "Account locked. Try again later."}), 403)
         
-        if hashed_password == user.password:     
+        user_password = user.password.encode('utf-8')
+        if bcrypt.checkpw(password,user_password):     
             session_token = str(uuid.uuid4())
             user.session_token = session_token
             db.session.commit() 
@@ -147,8 +150,8 @@ def get_admin_info():
 @app.route('/changepw',methods=['POST'])
 def change_password():
     username = request.json.get('username')
-    old_password = request.json.get('old_password')
-    new_password = request.json.get('new_password')
+    old_password = request.json.get('old_password').encode('utf-8')
+    new_password = request.json.get('new_password').encode('utf-8')
 
     if not username or not old_password or not new_password:
         app.logger.info("Username or password not provided")
@@ -158,21 +161,22 @@ def change_password():
         app.logger.info("new and old passwords are same")
         return make_response(jsonify({'message':"New password must be different from old password"}),400) 
         
-    hashed_old_password = hashlib.sha256(old_password.encode()).hexdigest()
-    user = User.query.filter_by(username=username, password=hashed_old_password).first()
+    # hashed_old_password = hashlib.sha256(old_password.encode()).hexdigest()
+    user = User.query.filter_by(username=username).first()
 
-    if user:
-        user.password = hashlib.sha256(new_password.encode()).hexdigest()
+    if user and bcrypt.checkpw(old_password, user.password.encode('utf-8')):
+        hashed_new_password = bcrypt.hashpw(new_password, bcrypt.gensalt())
+        user.password = hashed_new_password.decode('utf-8')
         session_token = str(uuid.uuid4())
         user.session_token = session_token
         db.session.commit()
-        response = make_response('',201)
-        response.set_cookie('session_token',session_token,secure=True, httponly=True, samesite='Lax')
+        response = make_response('', 201)
+        response.set_cookie('session_token', session_token, secure=True, httponly=True, samesite='Lax')
         app.logger.info(f"Username {username} changed their password")
         return response
     else:
-        app.logger.info(f"Invalid credentials")
-        return make_response(jsonify({'message':'Invalid credentials. Check username and password again.'}),401)    
+        app.logger.info("Invalid credentials")
+        return make_response(jsonify({'message': 'Invalid credentials. Check username and password again.'}), 401)   
 
 if __name__ == '__main__':
     admin_user()
