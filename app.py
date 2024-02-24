@@ -23,6 +23,8 @@ class User(db.Model):
     password = db.Column(db.String(255), nullable=False)
     role = db.Column(db.String(50), nullable=False)
     session_token = db.Column(db.String(50))
+    failed_login_attempts = db.Column(db.Integer, default=0)
+    locked_at = db.Column(db.DateTime, default=None)
 
 
 def admin_user():
@@ -62,7 +64,7 @@ def register_user():
     app.logger.info(f"Username {username} registered")
     return make_response('',201)
 
-
+#TODO: add db lock
 @app.route('/login',methods=['POST'])
 def login_user():
     username = request.json.get('username')
@@ -73,19 +75,38 @@ def login_user():
         return make_response(jsonify({'message':"Both username and password must be provided"}),400)
 
     hashed_password = hashlib.sha256(password.encode()).hexdigest()
-    user = User.query.filter_by(username=username, password=hashed_password).first()
+    # user = User.query.filter_by(username=username, password=hashed_password).first()
+    user = User.query.filter_by(username=username).first()
 
     if user:
-        session_token = str(uuid.uuid4())
-        user.session_token = session_token
-        db.session.commit() 
-        response = make_response('',201)
-        response.set_cookie('session_token',session_token,secure=True, httponly=True, samesite='Lax')
-        app.logger.info(f"Username {username} logged in")
-        return response
+        # Check if the account is locked
+        if user.failed_login_attempts >= 3:
+            # Check if 45 seconmds has passed since the account was locked
+            if user.locked_at + datetime.timedelta(seconds=45) < datetime.datetime.now():
+                user.failed_login_attempts = 0  # reset
+                db.session.commit()
+            else:
+                return make_response(jsonify({'message': "Account locked. Try again later."}), 403)
+        
+        if hashed_password == user.password:     
+            session_token = str(uuid.uuid4())
+            user.session_token = session_token
+            db.session.commit() 
+            response = make_response('',201)
+            response.set_cookie('session_token',session_token,secure=True, httponly=True, samesite='Lax')
+            app.logger.info(f"Username {username} logged in")
+            return response
+        else:
+            user.failed_login_attempts += 1
+            user.locked_at = datetime.datetime.now()
+            db.session.commit()
+            app.logger.info(f"Invalid credentials during login")
+            return make_response(jsonify({'message': 'Invalid credentials. Check username and password again.'}), 401)
+
+            
     else:
-        app.logger.info(f"Invalid credentials during login")
-        return make_response(jsonify({'message':'Invalid credentials. Check username and password again.'}),401)
+        app.logger.info(f"User not found")
+        return make_response(jsonify({'message':'User not found. Check username and password again.'}),401)
 
 @app.route('/user', methods=['GET'])
 def get_user_info():
