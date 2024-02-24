@@ -137,3 +137,84 @@ INFO:werkzeug: * Debugger PIN: 571-314-323
 INFO:app:Username admin logged in
 INFO:werkzeug:127.0.0.1 - - [20/Feb/2024 18:35:11] "[35m[1mPOST /login HTTP/1.1[0m" 201 -
 INFO:werkzeug:127.0.0.1 - - [20/Feb/2024 18:35:35] "GET /admin HTTP/1.1" 200 -
+INFO:app:Created Admin user
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 919-680-648
+INFO:app:Username admin logged in
+INFO:werkzeug:127.0.0.1 - - [23/Feb/2024 17:15:28] "[35m[1mPOST /login HTTP/1.1[0m" 201 -
+INFO:app:User not found
+INFO:werkzeug:127.0.0.1 - - [23/Feb/2024 17:15:43] "[31m[1mPOST /login HTTP/1.1[0m" 401 -
+INFO:app:User not found
+INFO:werkzeug:127.0.0.1 - - [23/Feb/2024 17:15:47] "[31m[1mPOST /login HTTP/1.1[0m" 401 -
+INFO:app:User not found
+INFO:werkzeug:127.0.0.1 - - [23/Feb/2024 17:15:50] "[31m[1mPOST /login HTTP/1.1[0m" 401 -
+INFO:app:User not found
+INFO:werkzeug:127.0.0.1 - - [23/Feb/2024 17:15:53] "[31m[1mPOST /login HTTP/1.1[0m" 401 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 919-680-648
+INFO:app:Invalid credentials during login
+INFO:werkzeug:127.0.0.1 - - [23/Feb/2024 17:19:44] "[31m[1mPOST /login HTTP/1.1[0m" 401 -
+INFO:app:Invalid credentials during login
+INFO:werkzeug:127.0.0.1 - - [23/Feb/2024 17:19:47] "[31m[1mPOST /login HTTP/1.1[0m" 401 -
+INFO:app:Invalid credentials during login
+INFO:werkzeug:127.0.0.1 - - [23/Feb/2024 17:19:49] "[31m[1mPOST /login HTTP/1.1[0m" 401 -
+INFO:werkzeug:127.0.0.1 - - [23/Feb/2024 17:19:57] "[31m[1mPOST /login HTTP/1.1[0m" 403 -
+INFO:werkzeug:127.0.0.1 - - [23/Feb/2024 17:20:49] "[31m[1mPOST /login HTTP/1.1[0m" 403 -
+INFO:werkzeug: * Detected change in '/Users/aasth/Desktop/SFU/Last_Sem/CMPT_785/Assignment_1/app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 919-680-648
+INFO:werkzeug: * Detected change in '/Users/aasth/Desktop/SFU/Last_Sem/CMPT_785/Assignment_1/app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 919-680-648
+INFO:werkzeug: * Detected change in '/Users/aasth/Desktop/SFU/Last_Sem/CMPT_785/Assignment_1/app.py', reloading
+INFO:werkzeug: * Restarting with stat
+INFO:app:Created Admin user
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 919-680-648
+INFO:app:Username admin logged in
+INFO:werkzeug:127.0.0.1 - - [23/Feb/2024 20:56:47] "[35m[1mPOST /login HTTP/1.1[0m" 201 -
+INFO:werkzeug:127.0.0.1 - - [23/Feb/2024 20:56:59] "[35m[1mPOST /login HTTP/1.1[0m" 500 -
+INFO:werkzeug: * Detected change in '/Users/aasth/Desktop/SFU/Last_Sem/CMPT_785/Assignment_1/app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 919-680-648
+INFO:werkzeug:127.0.0.1 - - [23/Feb/2024 20:58:24] "[35m[1mPOST /login HTTP/1.1[0m" 500 -
+INFO:werkzeug: * Detected change in '/Users/aasth/Desktop/SFU/Last_Sem/CMPT_785/Assignment_1/app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 919-680-648
+INFO:app:Created Admin user
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 919-680-648
+INFO:app:Invalid credentials during login
+INFO:werkzeug:127.0.0.1 - - [23/Feb/2024 20:59:33] "[31m[1mPOST /login HTTP/1.1[0m" 401 -
+INFO:app:Invalid credentials during login
+INFO:werkzeug:127.0.0.1 - - [23/Feb/2024 20:59:36] "[31m[1mPOST /login HTTP/1.1[0m" 401 -
+INFO:app:Invalid credentials during login
+INFO:werkzeug:127.0.0.1 - - [23/Feb/2024 20:59:39] "[31m[1mPOST /login HTTP/1.1[0m" 401 -
+INFO:werkzeug:127.0.0.1 - - [23/Feb/2024 20:59:40] "[35m[1mPOST /login HTTP/1.1[0m" 500 -
+INFO:werkzeug: * Detected change in '/Users/aasth/Desktop/SFU/Last_Sem/CMPT_785/Assignment_1/app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 919-680-648
+INFO:werkzeug:127.0.0.1 - - [23/Feb/2024 21:00:01] "[31m[1mPOST /login HTTP/1.1[0m" 403 -
+INFO:app:Username admin logged in
+INFO:werkzeug:127.0.0.1 - - [23/Feb/2024 21:03:58] "[35m[1mPOST /login HTTP/1.1[0m" 201 -
