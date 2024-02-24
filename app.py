@@ -1,19 +1,19 @@
-import sqlite3
 import uuid
 from flask import Flask, request, jsonify, make_response
 import hashlib
 import logging
 from flask_sqlalchemy import SQLAlchemy
 import datetime
-
+import os 
 #initalize logger
 logging.basicConfig(filename='app.log', level=logging.INFO)
 
 app = Flask(__name__)
-app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+app.secret_key =  os.urandom(24)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
 app.config['SESSION_COOKIE_SECURE'] = True
 app.config['SESSION_COOKIE_HTTPONLY'] = True
+app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
 app.config['PERMANENT_SESSION_LIFETIME'] = datetime.timedelta(minutes=15)
 db = SQLAlchemy(app)
 
@@ -78,9 +78,9 @@ def login_user():
     if user:
         session_token = str(uuid.uuid4())
         user.session_token = session_token
-        db.session.commit()
+        db.session.commit() 
         response = make_response('',201)
-        response.set_cookie('session_token',session_token)
+        response.set_cookie('session_token',session_token,secure=True, httponly=True, samesite='Lax')
         app.logger.info(f"Username {username} logged in")
         return response
     else:
@@ -92,28 +92,34 @@ def get_user_info():
     session_token = request.cookies.get('session_token')
 
     if not session_token:
+        app.logger.info(f"Session toke is missing")
         return make_response(jsonify({'message': 'Session token is required.'}), 401)
 
     user = User.query.filter_by(session_token=session_token).first()
 
     if user:
+        app.logger.info(f"Username {user.username} logged in")
         return make_response(jsonify({'message': f'Logged in as user {user.username}'}), 200)
     else:
-        return make_response(jsonify({'message': 'Invalid session token or session expired.'}), 401)
+        app.logger.info(f"Check the credentials or session token again")
+        return make_response(jsonify({'message': 'Invalid credentials or session expired.'}), 401)              
 
 @app.route('/admin', methods=['GET'])
 def get_admin_info():
     session_token = request.cookies.get('session_token')
 
     if not session_token:
+        app.logger.info(f"Session toke is missing")
         return make_response(jsonify({'message': 'Session token is required.'}), 401)
 
     # Check if the user with the provided session token is an admin
     admin_user = User.query.filter_by(session_token=session_token, role='admin').first()
 
     if admin_user:
-        return make_response(jsonify({'message': f'Admin access granted to user {admin_user.username}'}), 200)
+        app.logger.info(f"Username {admin_user.username} logged in as admin")
+        return make_response(jsonify({'message': f'Logged in as admin {admin_user.username}'}), 200)
     else:
+        app.logger.info(f"Recheck credentials or session token")
         return make_response(jsonify({'message': 'Access denied. Admin privileges required.'}), 403)
 
 
@@ -140,7 +146,7 @@ def change_password():
         user.session_token = session_token
         db.session.commit()
         response = make_response('',201)
-        response.set_cookie('session_token',session_token)
+        response.set_cookie('session_token',session_token,secure=True, httponly=True, samesite='Lax')
         app.logger.info(f"Username {username} changed their password")
         return response
     else:

@@ -10,17 +10,22 @@
 
 Run `python app.py` in a command line with the venv activated.
 
-In another command line, run `curl -X POST http://localhost:5000/register -H "Content-Type: application/json" -d "{\"username\": \"aastha\", \"password\": \"user\"}"` to test any endpoint (in this case I am testing the `/register` endpoint)
+In another command line:
 
-curl -c cookies.txt -X POST http://localhost:5000/login -H "Content-Type: application/json" -d "{\"username\": \"admin\", \"password\": \"admin\"}"  to login 
+### Register endpoint:
+`curl -i -X POST http://localhost:5000/register -H "Content-Type: application/json" -d "{\"username\": \"test\", \"password\": \"test\"}"` 
 
-curl -b cookies.txt -X GET "http://localhost:5000/admin" -H "Content-Type: application/json"  to get the user
+### Login and Get User endpoint:
+`curl -i -X POST http://localhost:5000/login -H "Content-Type: application/json" -d "{\"username\": \"aastha2\", \"password\": \"user\"}"`
 
-You can see the response of the `curl` command in the `app.log` file or in the command line itself (depending on the request).
+`curl -i -X GET http://localhost:5000/user -H "Content-Type: application/json" -b "session_token=<insert_token>;"`
 
-### Example of app.log:
 
-![alt text](/images/app_log.png)
+### Login and Get Admin endpoint:
+`curl -i -X POST http://localhost:5000/login -H "Content-Type: application/json" -d "{\"username\": \"admin\", \"password\": \"admin\"}"`
+
+`curl -i -X GET http://localhost:5000/admin -H "Content-Type: application/json" -b "session_token=<insert_token>"`
+
 
 # To do:
 
