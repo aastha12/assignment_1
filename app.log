@@ -218,3 +218,42 @@ INFO:werkzeug: * Debugger PIN: 919-680-648
 INFO:werkzeug:127.0.0.1 - - [23/Feb/2024 21:00:01] "[31m[1mPOST /login HTTP/1.1[0m" 403 -
 INFO:app:Username admin logged in
 INFO:werkzeug:127.0.0.1 - - [23/Feb/2024 21:03:58] "[35m[1mPOST /login HTTP/1.1[0m" 201 -
+INFO:app:Created Admin user
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 571-314-323
+INFO:app:Username rithik registered
+INFO:werkzeug:127.0.0.1 - - [23/Feb/2024 23:03:46] "[35m[1mPOST /register HTTP/1.1[0m" 201 -
+INFO:app:Username rithik logged in
+INFO:werkzeug:127.0.0.1 - - [23/Feb/2024 23:04:11] "[35m[1mPOST /login HTTP/1.1[0m" 201 -
+INFO:app:Username rithik logged in
+INFO:werkzeug:127.0.0.1 - - [23/Feb/2024 23:05:35] "GET /user HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [23/Feb/2024 23:05:55] "[35m[1mPOST /login HTTP/1.1[0m" 500 -
+INFO:app:Created Admin user
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 571-314-323
+INFO:app:Username admin logged in
+INFO:werkzeug:127.0.0.1 - - [23/Feb/2024 23:11:03] "[35m[1mPOST /login HTTP/1.1[0m" 201 -
+INFO:app:Username admin logged in as admin
+INFO:werkzeug:127.0.0.1 - - [23/Feb/2024 23:11:59] "GET /admin HTTP/1.1" 200 -
+INFO:app:Username Rithik registered
+INFO:werkzeug:127.0.0.1 - - [23/Feb/2024 23:12:39] "[35m[1mPOST /register HTTP/1.1[0m" 201 -
+INFO:app:Username Rithik logged in
+INFO:werkzeug:127.0.0.1 - - [23/Feb/2024 23:13:15] "[35m[1mPOST /login HTTP/1.1[0m" 201 -
+INFO:app:Recheck credentials or session token
+INFO:werkzeug:127.0.0.1 - - [23/Feb/2024 23:14:00] "[31m[1mGET /admin HTTP/1.1[0m" 403 -
+INFO:app:Username Rithik logged in
+INFO:werkzeug:127.0.0.1 - - [23/Feb/2024 23:14:10] "GET /user HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [23/Feb/2024 23:17:08] "[31m[1mPOST /changepw HTTP/1.1[0m" 400 -
+INFO:werkzeug:127.0.0.1 - - [23/Feb/2024 23:17:11] "[31m[1mPOST /changepw HTTP/1.1[0m" 400 -
+INFO:werkzeug:127.0.0.1 - - [23/Feb/2024 23:18:36] "[31m[1mPOST /changepw HTTP/1.1[0m" 400 -
+INFO:werkzeug:127.0.0.1 - - [23/Feb/2024 23:19:22] "[31m[1mPOST /changepw HTTP/1.1[0m" 400 -
+INFO:app:Username Rithik changed their password
+INFO:werkzeug:127.0.0.1 - - [23/Feb/2024 23:21:01] "[35m[1mPOST /changepw HTTP/1.1[0m" 201 -
