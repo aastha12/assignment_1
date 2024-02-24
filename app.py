@@ -182,7 +182,7 @@ def change_password():
         db.session.commit()
         response = make_response('', 201)
         response.set_cookie('session_token', session_token, secure=True, httponly=True, samesite='Lax')
-        app.logger.info(f"Username {username} changed their password")
+        app.logger.info(f"Username {username} changed their password with a session expiration of {random_minutes} minutes.")
         return response
     else:
         app.logger.info("Invalid credentials")
