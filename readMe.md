@@ -13,10 +13,10 @@ Run `python app.py` in a command line with the venv activated.
 In another command line:
 
 ### Register endpoint:
-`curl -i -X POST http://localhost:5000/register -H "Content-Type: application/json" -d "{\"username\": \"test\", \"password\": \"test\"}"` 
+`curl -i -X POST http://localhost:5000/register -H "Content-Type: application/json" -d "{\"username\": \"test\", \"password\": \"Testing@123456\"}"` 
 
 ### Login and Get User endpoint:
-`curl -i -X POST http://localhost:5000/login -H "Content-Type: application/json" -d "{\"username\": \"aastha2\", \"password\": \"user\"}"`
+`curl -i -X POST http://localhost:5000/login -H "Content-Type: application/json" -d "{\"username\": \"test\", \"password\": \"Testing@123456\"}"`
 
 `curl -i -X GET http://localhost:5000/user -H "Content-Type: application/json" -b "session_token=<insert_token>;"`
 
@@ -27,14 +27,14 @@ In another command line:
 `curl -i -X GET http://localhost:5000/admin -H "Content-Type: application/json" -b "session_token=<insert_token>"`
 
 ### Change Password endpoint:
-`curl -i -X POST http://localhost:5000/changepw -H "Content-Type: application/json" -d "{\"username\": \"aastha2\", \"old_password\": \"user2\",\"new_password\":\"user\"}"`
+`curl -i -X POST http://localhost:5000/changepw -H "Content-Type: application/json" -d "{\"username\": \"random_user\", \"old_password\": \"RandomUser##123\",\"new_password\":\"RandomUser@@123\"}"`
 
 ### Account Locked after incorrect password (3 retries):
 ```
-curl -i -X POST http://localhost:5000/login -H "Content-Type: application/json" -d "{\"username\": \"aastha2\", \"password\": \"test\"}"
+curl -i -X POST http://localhost:5000/login -H "Content-Type: application/json" -d "{\"username\": \"test\", \"password\": \"Test@1234\"}"
 HTTP/1.1 403 FORBIDDEN
 Server: Werkzeug/3.0.1 Python/3.12.1
-Date: Sat, 24 Feb 2024 08:05:37 GMT
+Date: Tue, 27 Feb 2024 08:49:52 GMT
 Content-Type: application/json
 Content-Length: 52
 Connection: close

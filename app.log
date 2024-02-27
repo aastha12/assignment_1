@@ -332,3 +332,53 @@ INFO:werkzeug: * Detected change in '/Users/aasth/Desktop/SFU/Last_Sem/CMPT_785/
 INFO:werkzeug: * Restarting with stat
 WARNING:werkzeug: * Debugger is active!
 INFO:werkzeug: * Debugger PIN: 919-680-648
+INFO:app:Created Admin user
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 919-680-648
+INFO:app:Password does not meet security requirements
+INFO:werkzeug:127.0.0.1 - - [27/Feb/2024 00:41:49] "[31m[1mPOST /register HTTP/1.1[0m" 400 -
+INFO:app:Username random_user registered
+INFO:werkzeug:127.0.0.1 - - [27/Feb/2024 00:41:57] "[35m[1mPOST /register HTTP/1.1[0m" 201 -
+INFO:app:Username random_user changed their password with a session expiration of 8 minutes.
+INFO:werkzeug:127.0.0.1 - - [27/Feb/2024 00:42:22] "[35m[1mPOST /changepw HTTP/1.1[0m" 201 -
+INFO:app:Invalid credentials during login
+INFO:werkzeug:127.0.0.1 - - [27/Feb/2024 00:42:56] "[31m[1mPOST /login HTTP/1.1[0m" 401 -
+INFO:app:Username random_user logged in with a session expiration of 13 minutes.
+INFO:werkzeug:127.0.0.1 - - [27/Feb/2024 00:43:06] "[35m[1mPOST /login HTTP/1.1[0m" 201 -
+INFO:app:Username random_user logged in
+INFO:werkzeug:127.0.0.1 - - [27/Feb/2024 00:43:26] "GET /user HTTP/1.1" 200 -
+INFO:app:Password does not meet security requirements
+INFO:werkzeug:127.0.0.1 - - [27/Feb/2024 00:44:25] "[31m[1mPOST /register HTTP/1.1[0m" 400 -
+INFO:app:Password does not meet security requirements
+INFO:werkzeug:127.0.0.1 - - [27/Feb/2024 00:44:30] "[31m[1mPOST /register HTTP/1.1[0m" 400 -
+INFO:app:Username test registered
+INFO:werkzeug:127.0.0.1 - - [27/Feb/2024 00:44:37] "[35m[1mPOST /register HTTP/1.1[0m" 201 -
+INFO:app:Invalid credentials during login
+INFO:werkzeug:127.0.0.1 - - [27/Feb/2024 00:45:38] "[31m[1mPOST /login HTTP/1.1[0m" 401 -
+INFO:app:Username test logged in with a session expiration of 11 minutes.
+INFO:werkzeug:127.0.0.1 - - [27/Feb/2024 00:45:52] "[35m[1mPOST /login HTTP/1.1[0m" 201 -
+INFO:app:Username admin logged in with a session expiration of 5 minutes.
+INFO:werkzeug:127.0.0.1 - - [27/Feb/2024 00:46:51] "[35m[1mPOST /login HTTP/1.1[0m" 201 -
+INFO:app:Invalid credentials during login
+INFO:werkzeug:127.0.0.1 - - [27/Feb/2024 00:49:45] "[31m[1mPOST /login HTTP/1.1[0m" 401 -
+INFO:app:Invalid credentials during login
+INFO:werkzeug:127.0.0.1 - - [27/Feb/2024 00:49:49] "[31m[1mPOST /login HTTP/1.1[0m" 401 -
+INFO:werkzeug:127.0.0.1 - - [27/Feb/2024 00:49:52] "[31m[1mPOST /login HTTP/1.1[0m" 403 -
+INFO:werkzeug: * Detected change in '/Users/aasth/Desktop/SFU/Last_Sem/CMPT_785/Assignment_1/app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 919-680-648
+INFO:werkzeug: * Detected change in '/Users/aasth/Desktop/SFU/Last_Sem/CMPT_785/Assignment_1/app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 919-680-648
+INFO:werkzeug: * Detected change in '/Users/aasth/Desktop/SFU/Last_Sem/CMPT_785/Assignment_1/app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 919-680-648
+INFO:app:Username test logged in with a session expiration of 8 minutes.
+INFO:werkzeug:127.0.0.1 - - [27/Feb/2024 00:50:41] "[35m[1mPOST /login HTTP/1.1[0m" 201 -
