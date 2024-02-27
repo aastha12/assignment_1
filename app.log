@@ -292,3 +292,43 @@ INFO:werkzeug:127.0.0.1 - - [24/Feb/2024 00:05:34] "[31m[1mPOST /login HTTP/1.
 INFO:werkzeug:127.0.0.1 - - [24/Feb/2024 00:05:37] "[31m[1mPOST /login HTTP/1.1[0m" 403 -
 INFO:app:Username aastha2 logged in
 INFO:werkzeug:127.0.0.1 - - [24/Feb/2024 00:07:25] "[35m[1mPOST /login HTTP/1.1[0m" 201 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 919-680-648
+INFO:app:Password does not meet security requirements
+INFO:werkzeug:127.0.0.1 - - [27/Feb/2024 00:26:32] "[31m[1mPOST /register HTTP/1.1[0m" 400 -
+INFO:app:Password does not meet security requirements
+INFO:werkzeug:127.0.0.1 - - [27/Feb/2024 00:27:01] "[31m[1mPOST /register HTTP/1.1[0m" 400 -
+INFO:app:Password does not meet security requirements
+INFO:werkzeug:127.0.0.1 - - [27/Feb/2024 00:27:21] "[31m[1mPOST /register HTTP/1.1[0m" 400 -
+INFO:app:Username random_user registered
+INFO:werkzeug:127.0.0.1 - - [27/Feb/2024 00:27:37] "[35m[1mPOST /register HTTP/1.1[0m" 201 -
+INFO:app:New password does not meet security requirements
+INFO:werkzeug:127.0.0.1 - - [27/Feb/2024 00:28:26] "[31m[1mPOST /changepw HTTP/1.1[0m" 400 -
+INFO:app:Username random_user changed their password
+INFO:werkzeug:127.0.0.1 - - [27/Feb/2024 00:28:39] "[35m[1mPOST /changepw HTTP/1.1[0m" 201 -
+INFO:app:Username random_user logged in
+INFO:werkzeug:127.0.0.1 - - [27/Feb/2024 00:29:07] "GET /user HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in '/Users/aasth/Desktop/SFU/Last_Sem/CMPT_785/Assignment_1/app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 919-680-648
+INFO:werkzeug: * Detected change in '/Users/aasth/Desktop/SFU/Last_Sem/CMPT_785/Assignment_1/app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 919-680-648
+INFO:werkzeug: * Detected change in '/Users/aasth/Desktop/SFU/Last_Sem/CMPT_785/Assignment_1/app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 919-680-648
+INFO:werkzeug: * Detected change in '/Users/aasth/Desktop/SFU/Last_Sem/CMPT_785/Assignment_1/app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 919-680-648
+INFO:werkzeug: * Detected change in '/Users/aasth/Desktop/SFU/Last_Sem/CMPT_785/Assignment_1/app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 919-680-648

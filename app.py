@@ -6,6 +6,8 @@ from flask_sqlalchemy import SQLAlchemy
 import datetime
 import os 
 import bcrypt
+import re
+
 #initalize logger
 logging.basicConfig(filename='app.log', level=logging.INFO)
 
@@ -42,6 +44,28 @@ def admin_user():
             db.session.commit()
             app.logger.info("Created Admin user")
 
+def is_password_secure(password):
+    #minimumm length
+    if len(password) < 12:
+        return False
+
+    #uppercase letter
+    if not re.search(r'[A-Z]', password):
+        return False
+
+    #lowercase letter
+    if not re.search(r'[a-z]', password):
+        return False
+
+    #digit
+    if not re.search(r'\d', password):
+        return False
+
+    #special character
+    if not re.search(r'[!@#$%^&*()\-_=+{};:,<.>]', password):
+        return False
+
+    return True
 
 @app.route('/register',methods=['POST'])
 def register_user():
@@ -51,6 +75,10 @@ def register_user():
     if not username or not password:
         app.logger.info("Username or password not provided")
         return make_response(jsonify({'message':"Both username and password must be provided"}),400)
+
+    if not is_password_secure(password.decode('utf-8')):
+        app.logger.info("Password does not meet security requirements")
+        return make_response(jsonify({'message':"Password must be at least 12 characters and include at least one uppercase letter, one lowercase letter, one digit, and one special character."}),400)
 
     #check if user already exists
     user = User.query.filter_by(username=username).first()
@@ -66,7 +94,7 @@ def register_user():
     app.logger.info(f"Username {username} registered")
     return make_response('',201)
 
-#TODO: add db lock
+
 @app.route('/login',methods=['POST'])
 def login_user():
     username = request.json.get('username')
@@ -165,6 +193,11 @@ def change_password():
     user = User.query.filter_by(username=username).first()
 
     if user and bcrypt.checkpw(old_password, user.password.encode('utf-8')):
+
+        if not is_password_secure(new_password.decode('utf-8')):
+            app.logger.info("New password does not meet security requirements")
+            return make_response(jsonify({'message':"Password must be at least 12 characters and include at least one uppercase letter, one lowercase letter, one digit, and one special character."}),400)        
+
         hashed_new_password = bcrypt.hashpw(new_password, bcrypt.gensalt())
         user.password = hashed_new_password.decode('utf-8')
         session_token = str(uuid.uuid4())

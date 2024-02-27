@@ -44,11 +44,47 @@ Connection: close
 }
 ```
 
+### Secure password requirement:
+```
+curl -i -X POST http://localhost:5000/register -H "Content-Type: application/json" -d "{\"username\": \"random_user\", \"password\": \"user\"}"
+HTTP/1.1 400 BAD REQUEST
+Server: Werkzeug/3.0.1 Python/3.12.1
+Date: Tue, 27 Feb 2024 08:26:32 GMT
+Content-Type: application/json
+Content-Length: 162
+Connection: close
+
+{
+  "message": "Password must be at least 12 characters and include at least one uppercase letter, one lowercase letter, one digit, and one special character."
+}
+```
+
+```
+curl -i -X POST http://localhost:5000/register -H "Content-Type: application/json" -d "{\"username\": \"random_user\", \"password\": \"RandomUser##123\"}"            
+HTTP/1.1 201 CREATED
+Server: Werkzeug/3.0.1 Python/3.12.1
+Date: Tue, 27 Feb 2024 08:27:37 GMT
+Content-Type: text/html; charset=utf-8
+Content-Length: 0
+Connection: close
+```
+
+```
+curl -i -X POST http://localhost:5000/changepw -H "Content-Type: application/json" -d "{\"username\": \"random_user\", \"old_password\": \"RandomUser##123\",\"new_password\":\"RandomUser@@123\"}"
+HTTP/1.1 201 CREATED
+Server: Werkzeug/3.0.1 Python/3.12.1
+Date: Tue, 27 Feb 2024 08:28:39 GMT
+Content-Type: text/html; charset=utf-8
+Content-Length: 0
+Set-Cookie: session_token=b23921aa-5740-4e45-9182-2d765005b63b; Secure; HttpOnly; Path=/; SameSite=Lax
+Connection: close
+```
+
 # To do:
 
 1. Check if all endpoints are working correctly as I haven't tested them yet (tested register and login) ✅
-2. Add remaining 3 endpoints and test it
-3. Secure the code by adding logging. I also saw something called Talisman but not sure if it helps
-4. Clean up code - Add .gitignore /comments/ formatting
-5. Need to set up docker to containerize it (?) 
+2. Add remaining 3 endpoints and test it ✅
+3. Secure the code ✅
+4. Clean up code - Add comments/ formatting ✅
+ 
 
