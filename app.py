@@ -7,7 +7,6 @@ import datetime
 import os 
 import bcrypt
 import random
-
 import re
 
 #initalize logger
@@ -19,7 +18,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
 app.config['SESSION_COOKIE_SECURE'] = True
 app.config['SESSION_COOKIE_HTTPONLY'] = True
 app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
-app.config['PERMANENT_SESSION_LIFETIME'] = datetime.timedelta(minutes=15)
+app.config['PERMANENT_SESSION_LIFETIME'] = datetime.timedelta(minutes=7)
 db = SQLAlchemy(app)
 
 class User(db.Model):
@@ -95,7 +94,7 @@ def register_user():
     db.session.commit()
 
     app.logger.info(f"Username {username} registered")
-    return make_response('',201)
+    return make_response(jsonify({'message':"Registration completed"}),201)
 
 
 @app.route('/login',methods=['POST'])
@@ -107,8 +106,7 @@ def login_user():
         app.logger.info("Username or password not provided")
         return make_response(jsonify({'message':"Both username and password must be provided"}),400)
 
-    #hashed_password = hashlib.sha256(password.encode()).hexdigest()
-    # user = User.query.filter_by(username=username, password=hashed_password).first()
+
     user = User.query.filter_by(username=username).first()
 
     if user:
@@ -116,6 +114,7 @@ def login_user():
         if user.failed_login_attempts >= 3:
             # Check if 45 seconmds has passed since the account was locked
             if user.locked_at + datetime.timedelta(seconds=45) < datetime.datetime.now():
+                app.logger.warning(f"Account locked due to failed login attempts, user: {username}")
                 user.failed_login_attempts = 0  # reset
                 db.session.commit()
             else:
@@ -127,7 +126,7 @@ def login_user():
             user.session_token = session_token
 
             # Randomize session expiration time
-            random_minutes = random.randint(5, 15)  # Randomize between 5 and 15 minutes
+            random_minutes = random.randint(3, 7)  # Randomize between 5 and 15 minutes
             user.session_expiration = datetime.datetime.now() + datetime.timedelta(minutes=random_minutes)
             
             db.session.commit() 
@@ -139,12 +138,12 @@ def login_user():
             user.failed_login_attempts += 1
             user.locked_at = datetime.datetime.now()
             db.session.commit()
-            app.logger.info(f"Invalid credentials during login")
+            app.logger.warning(f"Failed login attempt for user: {username}")
             return make_response(jsonify({'message': 'Invalid credentials. Check username and password again.'}), 401)
 
             
     else:
-        app.logger.info(f"User not found")
+        app.logger.warning(f"Login attempt for non-existing user: {username}")
         return make_response(jsonify({'message':'User not found. Check username and password again.'}),401)
 
 @app.route('/user', methods=['GET'])
@@ -156,10 +155,13 @@ def get_user_info():
         return make_response(jsonify({'message': 'Session token is required.'}), 401)
 
     user = User.query.filter_by(session_token=session_token).first()
-
-    if user:
+    role = user.role
+    if user and role != 'admin':
         app.logger.info(f"Username {user.username} logged in")
         return make_response(jsonify({'message': f'Logged in as user {user.username}'}), 200)
+    elif user and role == 'admin':
+        app.logger.warning(f"Trying to login as user with admin token")
+        return make_response(jsonify({'message': f'Invalid session token'}), 200)
     else:
         app.logger.info(f"Check the credentials or session token again")
         return make_response(jsonify({'message': 'Invalid credentials or session expired.'}), 401)              
@@ -177,7 +179,7 @@ def get_admin_info():
 
     if admin_user:
         app.logger.info(f"Username {admin_user.username} logged in as admin")
-        return make_response(jsonify({'message': f'Logged in as admin {admin_user.username}'}), 200)
+        return make_response(jsonify({'message': f'Username: {admin_user.username} logged in as Admin'}), 200)
     else:
         app.logger.info(f"Recheck credentials or session token")
         return make_response(jsonify({'message': 'Access denied. Admin privileges required.'}), 403)
@@ -190,7 +192,7 @@ def change_password():
     new_password = request.json.get('new_password').encode('utf-8')
 
     if not username or not old_password or not new_password:
-        app.logger.info("Username or password not provided")
+        app.logger.info("Username or password not provided for password change")
         return make_response(jsonify({'message':"Username,old and new passwords must be provided"}),400)    
 
     if old_password==new_password:
@@ -203,7 +205,7 @@ def change_password():
     if user and bcrypt.checkpw(old_password, user.password.encode('utf-8')):
 
         if not is_password_secure(new_password.decode('utf-8')):
-            app.logger.info("New password does not meet security requirements")
+            app.logger.warning(f"New password does not meet security requirements for user {username}")
             return make_response(jsonify({'message':"Password must be at least 12 characters and include at least one uppercase letter, one lowercase letter, one digit, and one special character."}),400)        
 
         hashed_new_password = bcrypt.hashpw(new_password, bcrypt.gensalt())
@@ -218,7 +220,7 @@ def change_password():
         app.logger.info(f"Username {username} changed their password with a session expiration of {random_minutes} minutes.")
         return response
     else:
-        app.logger.info("Invalid credentials")
+        app.logger.warning(f"Failed password change attempt for user: {username}")
         return make_response(jsonify({'message': 'Invalid credentials. Check username and password again.'}), 401)   
 
 if __name__ == '__main__':

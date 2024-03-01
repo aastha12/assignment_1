@@ -382,3 +382,155 @@ WARNING:werkzeug: * Debugger is active!
 INFO:werkzeug: * Debugger PIN: 919-680-648
 INFO:app:Username test logged in with a session expiration of 8 minutes.
 INFO:werkzeug:127.0.0.1 - - [27/Feb/2024 00:50:41] "[35m[1mPOST /login HTTP/1.1[0m" 201 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 571-314-323
+INFO:app:Username Rithik registered
+INFO:werkzeug:127.0.0.1 - - [29/Feb/2024 19:37:26] "[35m[1mPOST /register HTTP/1.1[0m" 201 -
+INFO:app:Username Rithik logged in with a session expiration of 13 minutes.
+INFO:werkzeug:127.0.0.1 - - [29/Feb/2024 19:41:10] "[35m[1mPOST /login HTTP/1.1[0m" 201 -
+INFO:werkzeug: * Detected change in 'C:\\Users\\ragar\\OneDrive\\Documents\\GitHub\\assignment_1\\app.py', reloading
+INFO:werkzeug: * Restarting with stat
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 571-314-323
+INFO:app:Username Rithik logged in with a session expiration of 6 minutes.
+INFO:werkzeug:127.0.0.1 - - [29/Feb/2024 20:02:11] "[35m[1mPOST /login HTTP/1.1[0m" 201 -
+INFO:app:Recheck credentials or session token
+INFO:werkzeug:127.0.0.1 - - [29/Feb/2024 20:03:17] "[31m[1mGET /admin HTTP/1.1[0m" 403 -
+INFO:app:Session toke is missing
+INFO:werkzeug:127.0.0.1 - - [29/Feb/2024 20:03:31] "[31m[1mGET /user HTTP/1.1[0m" 401 -
+INFO:app:Session toke is missing
+INFO:werkzeug:127.0.0.1 - - [29/Feb/2024 20:05:49] "[31m[1mGET /user HTTP/1.1[0m" 401 -
+INFO:werkzeug: * Detected change in 'C:\\Users\\ragar\\OneDrive\\Documents\\GitHub\\assignment_1\\app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 571-314-323
+INFO:app:Username Rithik logged in with a session expiration of 5 minutes.
+INFO:werkzeug:127.0.0.1 - - [29/Feb/2024 20:08:09] "[35m[1mPOST /login HTTP/1.1[0m" 201 -
+INFO:werkzeug:127.0.0.1 - - [29/Feb/2024 20:08:39] "[35m[1mGET /user HTTP/1.1[0m" 201 -
+INFO:werkzeug: * Detected change in 'C:\\Users\\ragar\\OneDrive\\Documents\\GitHub\\assignment_1\\app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 571-314-323
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 571-314-323
+INFO:app:Username Rithik2 registered
+INFO:werkzeug:127.0.0.1 - - [29/Feb/2024 20:18:29] "[35m[1mPOST /register HTTP/1.1[0m" 201 -
+INFO:app:Username Rithik2 already exists
+INFO:werkzeug:127.0.0.1 - - [29/Feb/2024 20:18:58] "[31m[1mPOST /register HTTP/1.1[0m" 400 -
+INFO:app:Username admin logged in with a session expiration of 7 minutes.
+INFO:werkzeug:127.0.0.1 - - [29/Feb/2024 20:19:13] "[35m[1mPOST /login HTTP/1.1[0m" 201 -
+INFO:app:Username Rithik2 logged in with a session expiration of 8 minutes.
+INFO:werkzeug:127.0.0.1 - - [29/Feb/2024 20:19:38] "[35m[1mPOST /login HTTP/1.1[0m" 201 -
+INFO:app:Username admin logged in
+INFO:werkzeug:127.0.0.1 - - [29/Feb/2024 20:20:05] "GET /user HTTP/1.1" 200 -
+ERROR:werkzeug:127.0.0.1 - - [29/Feb/2024 20:32:33] code 400, message Bad request syntax ('\x16\x03\x01\x00å\x01\x00\x00á\x03\x03i\xadxê')
+INFO:werkzeug:127.0.0.1 - - [29/Feb/2024 20:32:33] "[31m[1m\x16\x03\x01\x00å\x01\x00\x00á\x03\x03i­xê[0m" 400 -
+ERROR:werkzeug:127.0.0.1 - - [29/Feb/2024 20:32:48] code 400, message Bad request version ('À\x13À')
+INFO:werkzeug:127.0.0.1 - - [29/Feb/2024 20:32:48] "[31m[1m\x16\x03\x01\x00å\x01\x00\x00á\x03\x03Âz!F¢³´'\x9bÊ×\x04h\x91Vª\x83.qrñf ý\x0f\x87¾j\x18×\x15Ï ß\x96q¤Uå¸\x94ß|l\x04\x04äö¬¶j\x87ë×t\x83\x91\x8c×@E\x9es\x8cñ\x00$\x13\x01\x13\x02\x13\x03À/À+À0À,Ì©Ì¨À\x09À\x13À[0m" 400 -
+ERROR:werkzeug:127.0.0.1 - - [29/Feb/2024 20:33:14] code 400, message Bad request version ('À\x13À')
+INFO:werkzeug:127.0.0.1 - - [29/Feb/2024 20:33:14] "[31m[1m\x16\x03\x01\x00å\x01\x00\x00á\x03\x03\x85\x8bQ\\ì$ñâ0:­Nwã\x14\x13í¢ÞO\x03Y>ê÷þ1Gµ´W\x90 C\x19nÃ\x8bw±ÐÊ£\x0bõe\x0e\x902z\x8a°­\x10\x04qK\x19\x17Öôijt^\x00$\x13\x01\x13\x02\x13\x03À/À+À0À,Ì©Ì¨À\x09À\x13À[0m" 400 -
+ERROR:werkzeug:127.0.0.1 - - [29/Feb/2024 20:33:29] code 400, message Bad request version ('À\x13À')
+INFO:werkzeug:127.0.0.1 - - [29/Feb/2024 20:33:29] "[31m[1m\x16\x03\x01\x00÷\x01\x00\x00ó\x03\x03\x8a\x85\x833ò\x7f$7çGð\x9f<\x14XOM`\x9aü\x94c÷ó%Î \x95\x02ÁÃ­ pª\x1a\x0cÅ½\x8e\x8a3k\x1cy®â\\Ê\x0bÎ'2«G·é£Ö\x02Ýÿ\x90\x08Ä\x00$\x13\x01\x13\x02\x13\x03À/À+À0À,Ì©Ì¨À\x09À\x13À[0m" 400 -
+INFO:werkzeug:127.0.0.1 - - [29/Feb/2024 20:33:36] "[31m[1mPOST /login HTTP/1.1[0m" 400 -
+INFO:app:Username Rithik2 logged in with a session expiration of 13 minutes.
+INFO:werkzeug:127.0.0.1 - - [29/Feb/2024 20:34:20] "[35m[1mPOST /login HTTP/1.1[0m" 201 -
+INFO:werkzeug:127.0.0.1 - - [29/Feb/2024 20:35:04] "[31m[1mPOST /login HTTP/1.1[0m" 400 -
+INFO:app:Username Rithik2 logged in
+INFO:werkzeug:127.0.0.1 - - [29/Feb/2024 20:35:45] "GET /user HTTP/1.1" 200 -
+ERROR:werkzeug:127.0.0.1 - - [29/Feb/2024 20:50:00] code 400, message Bad request version ('À\x13À')
+INFO:werkzeug:127.0.0.1 - - [29/Feb/2024 20:50:00] "[31m[1m\x16\x03\x01\x00÷\x01\x00\x00ó\x03\x03\x97(\x88ºúo\x05\x1d27¿½Ð\x83ò[\x88ªu\x1a\x8aª)×Ê²\x89R\x8f\x9d\x19v s-Æ\x01\x1d\x94\x87\x8e^\x807m\x09°\x8aê\x03BV7|_HÕ°û9¿\x9c\x16AÙ\x00$\x13\x01\x13\x02\x13\x03À/À+À0À,Ì©Ì¨À\x09À\x13À[0m" 400 -
+INFO:app:Username Rithik2 logged in
+INFO:werkzeug:127.0.0.1 - - [29/Feb/2024 20:56:27] "GET /user HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in 'C:\\Users\\ragar\\OneDrive\\Documents\\GitHub\\assignment_1\\app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 571-314-323
+INFO:app:Username Rithik2 logged in
+INFO:werkzeug:127.0.0.1 - - [29/Feb/2024 20:57:03] "GET /user HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in 'C:\\Users\\ragar\\OneDrive\\Documents\\GitHub\\assignment_1\\app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 571-314-323
+INFO:app:Username Rithik2 logged in
+INFO:werkzeug:127.0.0.1 - - [29/Feb/2024 21:06:49] "GET /user HTTP/1.1" 200 -
+INFO:app:Username Rithik2 logged in
+INFO:werkzeug:127.0.0.1 - - [29/Feb/2024 21:06:50] "GET /user HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in 'C:\\Users\\ragar\\OneDrive\\Documents\\GitHub\\assignment_1\\app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 571-314-323
+INFO:app:Username Rithik2 logged in
+INFO:werkzeug:127.0.0.1 - - [29/Feb/2024 21:08:30] "GET /user HTTP/1.1" 200 -
+INFO:app:Password does not meet security requirements
+INFO:werkzeug:127.0.0.1 - - [29/Feb/2024 21:10:36] "[31m[1mPOST /register HTTP/1.1[0m" 400 -
+INFO:app:Username rithik2 registered
+INFO:werkzeug:127.0.0.1 - - [29/Feb/2024 21:10:46] "[35m[1mPOST /register HTTP/1.1[0m" 201 -
+INFO:werkzeug: * Detected change in 'C:\\Users\\ragar\\OneDrive\\Documents\\GitHub\\assignment_1\\app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 571-314-323
+INFO:app:Username rithik registered
+INFO:werkzeug:127.0.0.1 - - [29/Feb/2024 21:11:55] "[35m[1mPOST /register HTTP/1.1[0m" 201 -
+INFO:werkzeug:127.0.0.1 - - [29/Feb/2024 21:14:50] "[31m[1mGET /login HTTP/1.1[0m" 405 -
+INFO:app:Username rithik2 logged in with a session expiration of 7 minutes.
+INFO:werkzeug:127.0.0.1 - - [29/Feb/2024 21:15:20] "[35m[1mPOST /login HTTP/1.1[0m" 201 -
+INFO:app:Username rithik2 logged in
+INFO:werkzeug:127.0.0.1 - - [29/Feb/2024 21:16:26] "GET /user HTTP/1.1" 200 -
+INFO:app:Recheck credentials or session token
+INFO:werkzeug:127.0.0.1 - - [29/Feb/2024 21:16:40] "[31m[1mGET /admin HTTP/1.1[0m" 403 -
+INFO:werkzeug: * Detected change in 'C:\\Users\\ragar\\OneDrive\\Documents\\GitHub\\assignment_1\\app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 571-314-323
+INFO:werkzeug: * Detected change in 'C:\\Users\\ragar\\OneDrive\\Documents\\GitHub\\assignment_1\\app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 571-314-323
+INFO:app:Username admin logged in with a session expiration of 6 minutes.
+INFO:werkzeug:127.0.0.1 - - [29/Feb/2024 21:18:05] "[35m[1mPOST /login HTTP/1.1[0m" 201 -
+INFO:app:Username admin logged in as admin
+INFO:werkzeug:127.0.0.1 - - [29/Feb/2024 21:18:21] "GET /admin HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in 'C:\\Users\\ragar\\OneDrive\\Documents\\GitHub\\assignment_1\\app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 571-314-323
+INFO:app:Username admin logged in as admin
+INFO:werkzeug:127.0.0.1 - - [29/Feb/2024 21:19:28] "GET /admin HTTP/1.1" 200 -
+WARNING:app:Trying to login as user with admin token
+INFO:werkzeug:127.0.0.1 - - [29/Feb/2024 21:19:55] "GET /user HTTP/1.1" 200 -
+INFO:app:Username rithik2 logged in
+INFO:werkzeug:127.0.0.1 - - [29/Feb/2024 21:20:35] "GET /user HTTP/1.1" 200 -
+INFO:app:Username rithik2 logged in
+INFO:werkzeug:127.0.0.1 - - [29/Feb/2024 21:21:46] "GET /user HTTP/1.1" 200 -
+INFO:app:Username rithik2 logged in
+INFO:werkzeug:127.0.0.1 - - [29/Feb/2024 21:27:19] "GET /user HTTP/1.1" 200 -
+INFO:app:Username rithik2 logged in
+INFO:werkzeug:127.0.0.1 - - [29/Feb/2024 21:27:21] "GET /user HTTP/1.1" 200 -
+INFO:app:Username rithik2 logged in
+INFO:werkzeug:127.0.0.1 - - [29/Feb/2024 21:27:22] "GET /user HTTP/1.1" 200 -
+INFO:app:Username admin logged in as admin
+INFO:werkzeug:127.0.0.1 - - [29/Feb/2024 21:27:26] "GET /admin HTTP/1.1" 200 -
+INFO:app:Username rithik2 logged in with a session expiration of 6 minutes.
+INFO:werkzeug:127.0.0.1 - - [29/Feb/2024 22:04:00] "[35m[1mPOST /login HTTP/1.1[0m" 201 -
+INFO:app:Username rithik2 logged in
+INFO:werkzeug:127.0.0.1 - - [29/Feb/2024 22:04:37] "GET /user HTTP/1.1" 200 -
+INFO:app:Username rithik2 logged in
+INFO:werkzeug:127.0.0.1 - - [29/Feb/2024 22:11:22] "GET /user HTTP/1.1" 200 -
+INFO:app:Username rithik2 logged in
+INFO:werkzeug:127.0.0.1 - - [29/Feb/2024 22:11:27] "GET /user HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in 'C:\\Users\\ragar\\OneDrive\\Documents\\GitHub\\assignment_1\\app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 571-314-323
