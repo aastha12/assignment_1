@@ -6,6 +6,10 @@ from flask_sqlalchemy import SQLAlchemy
 import datetime
 import os 
 import bcrypt
+import random
+
+import re
+
 #initalize logger
 logging.basicConfig(filename='app.log', level=logging.INFO)
 
@@ -26,6 +30,7 @@ class User(db.Model):
     session_token = db.Column(db.String(50))
     failed_login_attempts = db.Column(db.Integer, default=0)
     locked_at = db.Column(db.DateTime, default=None)
+    session_expiration = db.Column(db.DateTime)  # Stores the actual expiration time for each session
 
 
 def admin_user():
@@ -42,6 +47,28 @@ def admin_user():
             db.session.commit()
             app.logger.info("Created Admin user")
 
+def is_password_secure(password):
+    #minimumm length
+    if len(password) < 12:
+        return False
+
+    #uppercase letter
+    if not re.search(r'[A-Z]', password):
+        return False
+
+    #lowercase letter
+    if not re.search(r'[a-z]', password):
+        return False
+
+    #digit
+    if not re.search(r'\d', password):
+        return False
+
+    #special character
+    if not re.search(r'[!@#$%^&*()\-_=+{};:,<.>]', password):
+        return False
+
+    return True
 
 @app.route('/register',methods=['POST'])
 def register_user():
@@ -51,6 +78,10 @@ def register_user():
     if not username or not password:
         app.logger.info("Username or password not provided")
         return make_response(jsonify({'message':"Both username and password must be provided"}),400)
+
+    if not is_password_secure(password.decode('utf-8')):
+        app.logger.info("Password does not meet security requirements")
+        return make_response(jsonify({'message':"Password must be at least 12 characters and include at least one uppercase letter, one lowercase letter, one digit, and one special character."}),400)
 
     #check if user already exists
     user = User.query.filter_by(username=username).first()
@@ -66,7 +97,7 @@ def register_user():
     app.logger.info(f"Username {username} registered")
     return make_response('',201)
 
-#TODO: add db lock
+
 @app.route('/login',methods=['POST'])
 def login_user():
     username = request.json.get('username')
@@ -94,10 +125,15 @@ def login_user():
         if bcrypt.checkpw(password,user_password):     
             session_token = str(uuid.uuid4())
             user.session_token = session_token
+
+            # Randomize session expiration time
+            random_minutes = random.randint(5, 15)  # Randomize between 5 and 15 minutes
+            user.session_expiration = datetime.datetime.now() + datetime.timedelta(minutes=random_minutes)
+            
             db.session.commit() 
             response = make_response('',201)
             response.set_cookie('session_token',session_token,secure=True, httponly=True, samesite='Lax')
-            app.logger.info(f"Username {username} logged in")
+            app.logger.info(f"Username {username} logged in with a session expiration of {random_minutes} minutes.")
             return response
         else:
             user.failed_login_attempts += 1
@@ -165,14 +201,21 @@ def change_password():
     user = User.query.filter_by(username=username).first()
 
     if user and bcrypt.checkpw(old_password, user.password.encode('utf-8')):
+
+        if not is_password_secure(new_password.decode('utf-8')):
+            app.logger.info("New password does not meet security requirements")
+            return make_response(jsonify({'message':"Password must be at least 12 characters and include at least one uppercase letter, one lowercase letter, one digit, and one special character."}),400)        
+
         hashed_new_password = bcrypt.hashpw(new_password, bcrypt.gensalt())
         user.password = hashed_new_password.decode('utf-8')
         session_token = str(uuid.uuid4())
         user.session_token = session_token
+        random_minutes = random.randint(5, 15)  # Randomize between 5 and 15 minutes for new session expiration
+        user.session_expiration = datetime.datetime.now() + datetime.timedelta(minutes=random_minutes)  # Reset session expiration
         db.session.commit()
         response = make_response('', 201)
         response.set_cookie('session_token', session_token, secure=True, httponly=True, samesite='Lax')
-        app.logger.info(f"Username {username} changed their password")
+        app.logger.info(f"Username {username} changed their password with a session expiration of {random_minutes} minutes.")
         return response
     else:
         app.logger.info("Invalid credentials")
