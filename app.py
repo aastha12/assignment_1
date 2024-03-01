@@ -8,12 +8,15 @@ import os
 import bcrypt
 import random
 import re
+import jwt
 
 #initalize logger
 logging.basicConfig(filename='app.log', level=logging.INFO)
 
 app = Flask(__name__)
 app.secret_key =  os.urandom(24)
+JWT_SECRET = os.urandom(24)  # Use a strong secret key
+JWT_ALGORITHM = 'HS256'  # HS256 is a commonly used hashing algorithm for JWT
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
 app.config['SESSION_COOKIE_SECURE'] = True
 app.config['SESSION_COOKIE_HTTPONLY'] = True
@@ -26,11 +29,18 @@ class User(db.Model):
     username = db.Column(db.String(50), unique=True, nullable=False)
     password = db.Column(db.String(255), nullable=False)
     role = db.Column(db.String(50), nullable=False)
-    session_token = db.Column(db.String(50))
     failed_login_attempts = db.Column(db.Integer, default=0)
     locked_at = db.Column(db.DateTime, default=None)
-    session_expiration = db.Column(db.DateTime)  # Stores the actual expiration time for each session
 
+def verify_jwt_token(token):
+    try:
+        payload = jwt.decode(token, JWT_SECRET, algorithms=[JWT_ALGORITHM])
+        return payload
+    except jwt.ExpiredSignatureError:
+        return 'Signature expired. Please log in again.'
+    except jwt.InvalidTokenError:
+        return 'Invalid token. Please log in again.'
+    
 
 def admin_user():
     with app.app_context():
@@ -81,7 +91,9 @@ def register_user():
     if not is_password_secure(password.decode('utf-8')):
         app.logger.info("Password does not meet security requirements")
         return make_response(jsonify({'message':"Password must be at least 12 characters and include at least one uppercase letter, one lowercase letter, one digit, and one special character."}),400)
-
+    if len(username)<5 or len(username)>20:
+        app.logger.info("username does not meet security requirements")
+        return make_response(jsonify({'message':"Username must be between 5 and 20 characters."}),400)
     #check if user already exists
     user = User.query.filter_by(username=username).first()
     if user:
@@ -121,18 +133,23 @@ def login_user():
                 return make_response(jsonify({'message': "Account locked. Try again later."}), 403)
         
         user_password = user.password.encode('utf-8')
-        if bcrypt.checkpw(password,user_password):     
-            session_token = str(uuid.uuid4())
+        if bcrypt.checkpw(password,user_password): 
+
+
+            JWT_EXP_DELTA_SECONDS = random.randint(180, 420)  # 7 minutes expiration time
+            payload = {
+            'user_id': username,  # Include user identifier
+            'exp': datetime.datetime.utcnow() + datetime.timedelta(seconds=JWT_EXP_DELTA_SECONDS)
+                    }
+            
+            session_token = jwt.encode(payload, JWT_SECRET, algorithm=JWT_ALGORITHM)
             user.session_token = session_token
 
-            # Randomize session expiration time
-            random_minutes = random.randint(3, 7)  # Randomize between 5 and 15 minutes
-            user.session_expiration = datetime.datetime.now() + datetime.timedelta(minutes=random_minutes)
             
             db.session.commit() 
-            response = make_response('',201)
+            response = make_response(jsonify({'message': f"logged in as {username}."}),201)
             response.set_cookie('session_token',session_token,secure=True, httponly=True, samesite='Lax')
-            app.logger.info(f"Username {username} logged in with a session expiration of {random_minutes} minutes.")
+            app.logger.info(f"Username {username} logged in.")
             return response
         else:
             user.failed_login_attempts += 1
@@ -154,14 +171,22 @@ def get_user_info():
         app.logger.info(f"Session toke is missing")
         return make_response(jsonify({'message': 'Session token is required.'}), 401)
 
-    user = User.query.filter_by(session_token=session_token).first()
+    verification_result = verify_jwt_token(session_token)
+
+    if isinstance(verification_result, str):
+        return make_response(jsonify({'message': verification_result}), 401)
+
+    user_id = verification_result['user_id']
+
+    user = User.query.filter_by(username=user_id).first()
     role = user.role
+
     if user and role != 'admin':
         app.logger.info(f"Username {user.username} logged in")
         return make_response(jsonify({'message': f'Logged in as user {user.username}'}), 200)
     elif user and role == 'admin':
-        app.logger.warning(f"Trying to login as user with admin token")
-        return make_response(jsonify({'message': f'Invalid session token'}), 200)
+        app.logger.warning(f"Invalid Token")
+        return make_response(jsonify({'message': f'Invalid session token'}), 401)
     else:
         app.logger.info(f"Check the credentials or session token again")
         return make_response(jsonify({'message': 'Invalid credentials or session expired.'}), 401)              
@@ -174,12 +199,19 @@ def get_admin_info():
         app.logger.info(f"Session toke is missing")
         return make_response(jsonify({'message': 'Session token is required.'}), 401)
 
-    # Check if the user with the provided session token is an admin
-    admin_user = User.query.filter_by(session_token=session_token, role='admin').first()
+    verification_result = verify_jwt_token(session_token)
 
-    if admin_user:
-        app.logger.info(f"Username {admin_user.username} logged in as admin")
-        return make_response(jsonify({'message': f'Username: {admin_user.username} logged in as Admin'}), 200)
+    if isinstance(verification_result, str):
+        return make_response(jsonify({'message': verification_result}), 401)
+
+    user_id = verification_result['user_id']
+
+    user = User.query.filter_by(username=user_id).first()
+    role = user.role
+
+    if user and role == "admin":
+        app.logger.info(f"Username {user.username} logged in as admin")
+        return make_response(jsonify({'message': f'Username: {user.username} logged in as Admin'}), 200)
     else:
         app.logger.info(f"Recheck credentials or session token")
         return make_response(jsonify({'message': 'Access denied. Admin privileges required.'}), 403)
@@ -199,7 +231,6 @@ def change_password():
         app.logger.info("new and old passwords are same")
         return make_response(jsonify({'message':"New password must be different from old password"}),400) 
         
-    # hashed_old_password = hashlib.sha256(old_password.encode()).hexdigest()
     user = User.query.filter_by(username=username).first()
 
     if user and bcrypt.checkpw(old_password, user.password.encode('utf-8')):
@@ -210,14 +241,9 @@ def change_password():
 
         hashed_new_password = bcrypt.hashpw(new_password, bcrypt.gensalt())
         user.password = hashed_new_password.decode('utf-8')
-        session_token = str(uuid.uuid4())
-        user.session_token = session_token
-        random_minutes = random.randint(5, 15)  # Randomize between 5 and 15 minutes for new session expiration
-        user.session_expiration = datetime.datetime.now() + datetime.timedelta(minutes=random_minutes)  # Reset session expiration
         db.session.commit()
-        response = make_response('', 201)
-        response.set_cookie('session_token', session_token, secure=True, httponly=True, samesite='Lax')
-        app.logger.info(f"Username {username} changed their password with a session expiration of {random_minutes} minutes.")
+        response = make_response(jsonify({'message': f'Password changed for user {username}'}), 201)
+        app.logger.info(f"Username {username} changed their password.")
         return response
     else:
         app.logger.warning(f"Failed password change attempt for user: {username}")
@@ -225,4 +251,4 @@ def change_password():
 
 if __name__ == '__main__':
     admin_user()
-    app.run(debug=True)
+    app.run(debug=True, ssl_context=('cert.pem', 'key.pem'))
